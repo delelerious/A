@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>survey.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #6aab73;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #2aacb8;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+survey.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:cloud_firestore/cloud_firestore.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:firebase_database/firebase_database.dart'</span><span class="s2">;</span>
+<span class="s3">class </span><span class="s0">SurveyPage </span><span class="s3">extends </span><span class="s0">StatefulWidget </span><span class="s2">{</span>
+  <span class="s3">const </span><span class="s0">SurveyPage</span><span class="s2">({</span><span class="s3">super</span><span class="s2">.</span><span class="s0">key</span><span class="s2">});</span>
+
+  <span class="s0">@override</span>
+   <span class="s0">_SurveyPageState createState</span><span class="s2">() =&gt; </span><span class="s0">_SurveyPageState</span><span class="s2">();</span>
+  <span class="s2">}</span>
+
+<span class="s3">class </span><span class="s0">_SurveyPageState </span><span class="s3">extends </span><span class="s0">State</span><span class="s2">&lt;</span><span class="s0">SurveyPage</span><span class="s2">&gt; {</span>
+  <span class="s0">int qNumber </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+  <span class="s0">List</span><span class="s2">&lt;</span><span class="s0">String</span><span class="s2">&gt; </span><span class="s0">questions </span><span class="s2">= [</span><span class="s1">'what was the name of your first family pet'</span><span class="s2">,</span><span class="s1">'how many fingers am i holding up'</span><span class="s2">,</span><span class="s1">'what is 1+1'</span><span class="s2">,</span><span class="s1">'what is 2+2'</span><span class="s2">,</span><span class="s1">'in \&quot;euphoria\&quot; by Kendrick Lamar, what does Kendrick say about Drakes fashion sense'</span><span class="s2">];</span>
+  <span class="s0">List</span><span class="s2">&lt;</span><span class="s0">List</span><span class="s2">&lt;</span><span class="s0">String</span><span class="s2">&gt;&gt; </span><span class="s0">answers </span><span class="s2">= [[</span><span class="s1">'dog'</span><span class="s2">,</span><span class="s1">'john'</span><span class="s2">,</span><span class="s1">'cat'</span><span class="s2">,</span><span class="s1">'fish'</span><span class="s2">,</span><span class="s1">'mouse'</span><span class="s2">],[</span><span class="s1">'1'</span><span class="s2">,</span><span class="s1">'2'</span><span class="s2">,</span><span class="s1">'3'</span><span class="s2">,</span><span class="s1">'4'</span><span class="s2">,</span><span class="s1">'5'</span><span class="s2">],[</span><span class="s1">'1'</span><span class="s2">,</span><span class="s1">'2'</span><span class="s2">,</span><span class="s1">'3'</span><span class="s2">,</span><span class="s1">'4'</span><span class="s2">,</span><span class="s1">'5'</span><span class="s2">],[</span><span class="s1">'1'</span><span class="s2">,</span><span class="s1">'2'</span><span class="s2">,</span><span class="s1">'3'</span><span class="s2">,</span><span class="s1">'4'</span><span class="s2">,</span><span class="s1">'5'</span><span class="s2">],[</span><span class="s1">'i hate the way that you walk'</span><span class="s2">,</span><span class="s1">'i hate the way that you talk'</span><span class="s2">,</span><span class="s1">'i hate the way that you dress'</span><span class="s2">,</span><span class="s1">'i hate the way that you sneak diss'</span><span class="s2">,</span><span class="s1">'drake'</span><span class="s2">]];</span>
+  <span class="s0">List</span><span class="s2">&lt;</span><span class="s0">String</span><span class="s2">&gt; </span><span class="s0">response </span><span class="s2">= [];</span>
+  <span class="s3">void </span><span class="s0">submitResponse </span><span class="s2">(</span><span class="s0">String userResponse</span><span class="s2">){</span>
+    <span class="s0">setState</span><span class="s2">(() {</span>
+      <span class="s0">response</span><span class="s2">.</span><span class="s0">add</span><span class="s2">(</span><span class="s0">userResponse</span><span class="s2">);</span>
+      <span class="s3">if </span><span class="s2">(</span><span class="s0">qNumber</span><span class="s2">&lt;</span><span class="s0">questions</span><span class="s2">.</span><span class="s0">length</span><span class="s2">-</span><span class="s4">1</span><span class="s2">) {</span>
+        <span class="s0">qNumber</span><span class="s2">++;</span>
+      <span class="s2">}</span>
+      <span class="s3">else </span><span class="s2">{</span>
+        <span class="s0">submitSurvey</span><span class="s2">();</span>
+        <span class="s0">answerDatabase</span><span class="s2">();</span>
+        <span class="s2">}</span>
+      <span class="s2">}</span>
+    <span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s3">void </span><span class="s0">submitSurvey </span><span class="s2">(){</span>
+  <span class="s0">showDialog</span>
+  <span class="s2">(</span><span class="s0">context</span><span class="s2">: </span><span class="s0">context</span><span class="s2">, </span><span class="s0">builder</span><span class="s2">: (</span><span class="s0">BuildContext context</span><span class="s2">){</span>
+  <span class="s3">return </span><span class="s0">AlertDialog</span><span class="s2">(</span><span class="s0">title</span><span class="s2">: </span><span class="s3">const </span><span class="s0">Text</span><span class="s2">(</span><span class="s1">'thanks for submitting'</span><span class="s2">),</span>
+  <span class="s0">content</span><span class="s2">: </span><span class="s0">Column</span><span class="s2">(</span><span class="s0">mainAxisSize</span><span class="s2">: </span><span class="s0">MainAxisSize</span><span class="s2">.</span><span class="s0">min</span><span class="s2">,</span>
+  <span class="s0">children</span><span class="s2">: </span><span class="s0">response</span><span class="s2">.</span><span class="s0">asMap</span><span class="s2">().</span><span class="s0">entries</span><span class="s2">.</span><span class="s0">map</span><span class="s2">((</span><span class="s0">entry</span><span class="s2">)</span>
+  <span class="s2">{</span><span class="s0">int index </span><span class="s2">= </span><span class="s0">entry</span><span class="s2">.</span><span class="s0">key</span><span class="s2">; </span><span class="s0">String reply </span><span class="s2">= </span><span class="s0">entry</span><span class="s2">.</span><span class="s0">value</span><span class="s2">;</span>
+  <span class="s3">return </span><span class="s0">Text</span><span class="s2">(</span><span class="s1">'</span><span class="s2">${</span><span class="s0">questions</span><span class="s2">[</span><span class="s0">index</span><span class="s2">]}</span><span class="s1">:</span><span class="s2">$</span><span class="s0">reply</span><span class="s1">'</span><span class="s2">);</span>
+  <span class="s2">}).</span><span class="s0">toList</span><span class="s2">(),),</span>
+  <span class="s0">actions</span><span class="s2">: [</span><span class="s0">TextButton</span><span class="s2">(</span><span class="s0">child</span><span class="s2">: </span><span class="s3">const </span><span class="s0">Text</span><span class="s2">(</span><span class="s1">'OK'</span><span class="s2">), </span><span class="s0">onPressed</span><span class="s2">: (){</span><span class="s0">Navigator</span><span class="s2">.</span><span class="s0">of</span><span class="s2">(</span><span class="s0">context</span><span class="s2">).</span><span class="s0">pop</span><span class="s2">();</span>
+  <span class="s0">setState</span><span class="s2">(() {</span>
+  <span class="s0">qNumber </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+  <span class="s0">response</span><span class="s2">.</span><span class="s0">clear</span><span class="s2">();</span>
+  <span class="s2">});</span>
+  <span class="s2">},</span>
+  <span class="s2">),</span>
+  <span class="s2">],</span>
+  <span class="s2">);</span>
+  <span class="s2">}</span>
+  <span class="s2">);</span>
+<span class="s2">}</span>
+<span class="s3">void </span><span class="s0">answerDatabase </span><span class="s2">(){</span>
+   <span class="s5">// FirebaseFirestore.instance.collection('answersCollection').add({</span>
+     <span class="s5">// 'responses': response,</span>
+     <span class="s5">// 'timestamp': Timestamp.now(),</span>
+      <span class="s0">DatabaseReference database </span><span class="s2">= </span><span class="s0">FirebaseDatabase</span><span class="s2">.</span><span class="s0">instance</span><span class="s2">.</span><span class="s0">reference</span><span class="s2">().</span><span class="s0">child</span><span class="s2">(</span><span class="s1">'data'</span><span class="s2">).</span><span class="s0">push</span><span class="s2">();</span>
+   <span class="s5">// });</span>
+<span class="s2">}</span>
+<span class="s0">@override</span>
+<span class="s0">Widget build</span><span class="s2">(</span><span class="s0">BuildContext context</span><span class="s2">) {</span>
+  <span class="s3">return </span><span class="s0">Scaffold</span><span class="s2">(</span>
+    <span class="s0">appBar</span><span class="s2">: </span><span class="s0">AppBar</span><span class="s2">(</span>
+      <span class="s0">title</span><span class="s2">: </span><span class="s3">const </span><span class="s0">Text</span><span class="s2">(</span><span class="s1">'Survey Page'</span><span class="s2">),</span>
+    <span class="s2">),</span>
+    <span class="s0">body</span><span class="s2">: </span><span class="s0">Padding</span><span class="s2">(</span>
+      <span class="s0">padding</span><span class="s2">: </span><span class="s3">const </span><span class="s0">EdgeInsets</span><span class="s2">.</span><span class="s0">all</span><span class="s2">(</span><span class="s4">16.0</span><span class="s2">),</span>
+      <span class="s0">child</span><span class="s2">: </span><span class="s0">Column</span><span class="s2">(</span>
+        <span class="s0">crossAxisAlignment</span><span class="s2">: </span><span class="s0">CrossAxisAlignment</span><span class="s2">.</span><span class="s0">stretch</span><span class="s2">,</span>
+        <span class="s0">children</span><span class="s2">: [</span>
+          <span class="s0">Text</span><span class="s2">(</span><span class="s0">questions</span><span class="s2">[</span><span class="s0">qNumber</span><span class="s2">],</span>
+            <span class="s0">style</span><span class="s2">: </span><span class="s3">const </span><span class="s0">TextStyle</span><span class="s2">(</span><span class="s0">fontSize</span><span class="s2">: </span><span class="s4">24.0</span><span class="s2">),</span>
+          <span class="s2">),</span>
+          <span class="s3">const </span><span class="s0">SizedBox</span><span class="s2">(</span><span class="s0">height</span><span class="s2">: </span><span class="s4">20.0</span><span class="s2">),</span>
+          <span class="s0">...answers</span><span class="s2">[</span><span class="s0">qNumber</span><span class="s2">].</span><span class="s0">map</span><span class="s2">((</span><span class="s0">option</span><span class="s2">) {</span>
+            <span class="s3">return </span><span class="s0">ElevatedButton</span><span class="s2">(</span>
+              <span class="s0">onPressed</span><span class="s2">: () =&gt; </span><span class="s0">submitResponse</span><span class="s2">(</span><span class="s0">option</span><span class="s2">),</span>
+              <span class="s0">child</span><span class="s2">: </span><span class="s0">Text</span><span class="s2">(</span><span class="s0">option</span><span class="s2">),</span>
+            <span class="s2">);</span>
+          <span class="s2">}).</span><span class="s0">toList</span><span class="s2">(),</span>
+        <span class="s2">],</span>
+      <span class="s2">),</span>
+    <span class="s2">),</span>
+  <span class="s2">);</span>
+<span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

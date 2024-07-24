@@ -1,0 +1,32 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+// change project level(not app level) build.gradle to this:
+//
+//
+// buildscript { repositories { google() mavenCentral() } dependencies { // Add the Google services Gradle plugin dependency classpath 'com.google.gms:google-services:4.4.1' // Add other dependencies if needed } } allprojects { repositories { google() mavenCentral() } } rootProject.buildDir = '../build' subprojects { project.buildDir = "${rootProject.buildDir}/${project.name}" project.evaluationDependsOn(':app') } tasks.register("clean", Delete) { delete rootProject.buildDir }
+//
+//
+//
+// Change miniSDK version on project level build.gradle to 21 instead of 19
+//
+//
+// Verify google-services.json is in app level folder
+//
+//
+// Hit sync now when changing any gradle files
