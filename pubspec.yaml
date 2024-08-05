@@ -34,6 +34,7 @@ dependencies:
   firebase_core: ^2.6.0
   cloud_firestore: ^4.5.0
   google_generative_ai: ^0.3.1
+  url_launcher:
   flutter_dotenv:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -69,6 +70,9 @@ flutter:
   assets:
       - assets/iamge1.jpg
       - assets/iamge2.jpg
+      - assets/articleimage1.jpg
+      - assets/articleimage2.jpg
+      - assets/articleimage3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
