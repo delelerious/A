@@ -54,7 +54,7 @@ class ScrollbarExample extends StatelessWidget {
     'assets/articleimage2.jpg',
     'assets/articleimage3.jpg'
   ];
-
+ScrollController scrollControllerThing = ScrollController();
   Future<void> linkThing(String urlName) async {
     if (await canLaunchUrl(urlName as Uri)) {
       print('going to link');
@@ -68,6 +68,7 @@ class ScrollbarExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
+      controller: scrollControllerThing,
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(nameForAnotherList.length, (index) {
