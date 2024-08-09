@@ -1,27 +1,16 @@
 # draft_1
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+- First iteration of an app in development designed to track mood through simple survey-based data collection
+- 
 ## Home Page
 
 - Simple navigation bar for switching between pages
+- Calendar Date Picker: Multi-functional calendar, select date and press "Make Appointment"
+- purpose language environment
 
-## Calendar Date Picker
+## Help Page
 
-- Multi-functional calendar, select date and press "Make Appointment"
+## Resources Page
 
 ## Firebase
 

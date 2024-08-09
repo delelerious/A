@@ -53,10 +53,7 @@ class _HomePageState extends
     });
     print('selectedIndex: $_selectedIndex');
     if (_selectedIndex == 0) {
-      Navigator.push(context, MaterialPageRoute(builder:
-          (context) => const HomePage()
-      )
-      );
+return;
     }
     else if (_selectedIndex == 1) {
       Navigator.push(context, MaterialPageRoute(builder:
@@ -92,7 +89,7 @@ class _HomePageState extends
         Colors.lime,
         title: Text("Home"),
       ),
-      body: SingleChildScrollView(child: Column(children: [
+      body: Column(children: [
         CalendarDatePicker(
           initialDate: DateTime.now(),
         firstDate: DateTime(2000),
@@ -119,15 +116,14 @@ class _HomePageState extends
           child: Text('Go to Appointment Page'),
         ),
         SizedBox(height: 20),
-        Expanded(child: ListView.builder(itemCount: appointments.length, itemBuilder: (context, index){
+        Flexible(child: ListView.builder(itemCount: appointments.length, itemBuilder: (context, index){
           print('displaying appointment');
           return ListTile(title: Text('Appointment at ${appointments[index]['time']}'),
           );
-        }
-        )
-        )
-      ]
-      )
+        },
+        ),
+        ),
+      ],
       ),
 
       bottomNavigationBar: BottomNavigationBar(

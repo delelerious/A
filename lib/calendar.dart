@@ -65,7 +65,7 @@ setState((){
               child: Text('Go to Appointment Page'),
             ),
             SizedBox(height: 20),
-            Expanded(child: ListView.builder(itemCount: appointments.length, itemBuilder: (context, index){
+            Flexible(child: ListView.builder(itemCount: appointments.length, itemBuilder: (context, index){
               print('displaying appointment');
               return ListTile(title: Text('Appointment at ${appointments[index]['time']}'),
               );
