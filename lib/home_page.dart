@@ -3,6 +3,8 @@ import 'package:draft_1/help.dart';
 import 'package:flutter/material.dart';
 import 'package:draft_1/appointment.dart';
 import 'package:draft_1/resources.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 void
 navigateToCalendarPage(BuildContext context){
@@ -26,7 +28,25 @@ class _HomePageState extends
     State<HomePage> {
   int _selectedIndex = 0;
   DateTime? _selectedDate;
-
+  List <Map<String, dynamic>> appointments = [];
+  void appointmentOnSpecificDate(DateTime date) {
+    final CollectionReference appointmentCollection = FirebaseFirestore.instance.collection('collectionOfAppointmentData');
+    final String appointmentDate = DateFormat('YYYY-MM-DD').format(date);
+    appointmentCollection
+        .where('date', isEqualTo: appointmentDate)
+        .snapshots()
+        .listen((snapshot){
+      final List<Map<String, dynamic>> listOfAppointments = [];
+      for(var doc in snapshot.docs) {
+        listOfAppointments.add(doc.data() as Map <String, dynamic>);
+      }
+      setState((){
+        appointments = listOfAppointments;
+      }
+      );
+    }
+    );
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -97,6 +117,14 @@ class _HomePageState extends
             }
                 : null,
           child: Text('Go to Appointment Page'),
+        ),
+        SizedBox(height: 20),
+        Expanded(child: ListView.builder(itemCount: appointments.length, itemBuilder: (context, index){
+          print('displaying appointment');
+          return ListTile(title: Text('Appointment at ${appointments[index]['time']}'),
+          );
+        }
+        )
         )
       ]
       )

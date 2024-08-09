@@ -34,7 +34,7 @@ class AppointmentPage extends StatelessWidget {
   }
   void _makeAppointment(BuildContext context, DateTime date) {
     final CollectionReference appointmentCollection = FirebaseFirestore.instance.collection('collectionOfAppointmentData');
-    final String appointmentDate = DateFormat('YYYY-MM-DD').format(date);
+    final String appointmentDate = DateFormat('yyyy-MM-dd').format(date);
     appointmentCollection.add({
       'date': appointmentDate,
       // 'timestamp': 'time',
