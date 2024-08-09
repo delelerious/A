@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AppointmentPage extends StatelessWidget {
   final DateTime selectedDate;
 
@@ -30,8 +32,14 @@ class AppointmentPage extends StatelessWidget {
       ),
     );
   }
-
   void _makeAppointment(BuildContext context, DateTime date) {
+    final CollectionReference appointmentCollection = FirebaseFirestore.instance.collection('collectionOfAppointmentData');
+    final String appointmentDate = DateFormat('YYYY-MM-DD').format(date);
+    appointmentCollection.add({
+      'date': appointmentDate,
+      // 'timestamp': 'time',
+    }
+    );
     // Logic to make an appointment using the selected date
     // For example, saving to a database or making a network request
     ScaffoldMessenger.of(context).showSnackBar(

@@ -68,7 +68,6 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-      - assets/iamge1.jpg
       - assets/iamge2.jpg
       - assets/articleimage1.jpg
       - assets/articleimage2.jpg

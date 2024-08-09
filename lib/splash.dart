@@ -20,16 +20,10 @@ class _SplashState extends State<Splash> {
     return Scaffold(
         appBar: AppBar(title: Text("Welcome"),
         ),
+        backgroundColor: Colors.lightGreen.shade400,
         body: Center(
             child: Column(
                 children: <Widget>[
-                  Positioned(
-                      top: 0.0,
-                      child: Image.asset('assets/iamge1.jpg',
-                        height: 500,
-                        width: 500,
-                      )
-                  ),
                   Positioned(
                       bottom: 150.0,
                       child: Image.asset('assets/iamge2.jpg',

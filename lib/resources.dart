@@ -8,7 +8,7 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
-  List<String> resources = ['a','b','c'];
+  List<String> resources = ['a','b','c','d','e'];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,9 +56,10 @@ class ScrollbarExample extends StatelessWidget {
   ];
 ScrollController scrollControllerThing = ScrollController();
   Future<void> linkThing(String urlName) async {
-    if (await canLaunchUrl(urlName as Uri)) {
+    final Uri url = Uri.parse(urlName);
+    if (await canLaunchUrl(url)) {
       print('going to link');
-      await launchUrl(urlName as Uri);
+      await launchUrl(url);
     }
     else {
       print('could not launch :(');
@@ -70,6 +71,7 @@ ScrollController scrollControllerThing = ScrollController();
     return Scrollbar(
       controller: scrollControllerThing,
       child: SingleChildScrollView(
+        controller: scrollControllerThing,
         child: Column(
           children: List.generate(nameForAnotherList.length, (index) {
             final text = articleList[index];

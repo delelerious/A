@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:draft_1/appointment.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 class CalendarPage extends StatefulWidget {
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -8,7 +9,25 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   DateTime? _selectedDate;
-
+  List <Map<String, dynamic>> appointments = [];
+void appointmentOnSpecificDate(DateTime date) {
+  final CollectionReference appointmentCollection = FirebaseFirestore.instance.collection('collectionOfAppointmentData');
+  final String appointmentDate = DateFormat('YYYY-MM-DD').format(date);
+  appointmentCollection
+  .where('date', isEqualTo: appointmentDate)
+  .snapshots()
+  .listen((snapshot){
+final List<Map<String, dynamic>> listOfAppointments = [];
+for(var doc in snapshot.docs) {
+  listOfAppointments.add(doc.data() as Map <String, dynamic>);
+}
+setState((){
+  appointments = listOfAppointments;
+}
+);
+  }
+  );
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +45,7 @@ class _CalendarPageState extends State<CalendarPage> {
               onDateChanged: (newDate) {
                 setState(() {
                   _selectedDate = newDate;
+                  appointmentOnSpecificDate(newDate);
                   print ('selectedDate: $_selectedDate');
                 });
               },

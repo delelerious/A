@@ -14,3 +14,19 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Home Page
+
+- Simple navigation bar for switching between pages
+
+## Calendar Date Picker
+
+- Multi-functional calendar, select date and press "Make Appointment"
+
+## Firebase
+
+- Google Firebase Database used for storing data results in help page survey
+
+## Google Generative Ai
+
+- Google Ai chat capable of responding to requests 
